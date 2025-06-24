@@ -1,0 +1,155 @@
+/* ============================== */
+/* SEÇÃO - ÚLTIMAS NOTÍCIAS      */
+/* ============================== */
+
+.ultimas-noticias {
+  padding: 40px 20px;
+  background-color: #fff;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Título com efeito de borda animada */
+.titulo-secao {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 35px;
+  position: relative;
+  display: inline-block;
+  color: #222;
+  border-bottom: 2px solid #ff6600;
+  padding: 10px 20px;
+}
+
+.titulo-secao::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  border: 2px solid #ff6600;
+  animation: draw-border 2.5s ease-in-out forwards;
+}
+
+/* Lista de notícias */
+.noticias-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Card de notícia (link) */
+.noticia-list-item {
+  display: flex;
+  gap: 30px;
+  background: #f3f3f3;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #111;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.noticia-list-item:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Imagem */
+.noticia-img-box {
+  flex: 0 0 300px;
+  height: 200px;
+  overflow: hidden;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.noticia-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Conteúdo da notícia */
+.noticia-list-content {
+  flex: 1;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.noticia-list-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.leia-mais {
+  font-size: 15px;
+  color: orange;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+
+/* ============================== */
+/* RESPONSIVO                    */
+/* ============================== */
+
+@media (max-width: 768px) {
+  .noticia-list-item {
+    flex-direction: column;
+  }
+
+  .noticia-img-box {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .noticia-list-content {
+    padding: 20px;
+  }
+
+  .noticia-list-content h3 {
+    font-size: 20px;
+  }
+
+  .leia-mais {
+    font-size: 14px;
+  }
+}
+
+/* ============================== */
+/* ANIMAÇÃO DO TÍTULO            */
+/* ============================== */
+
+@keyframes draw-border {
+  0% {
+    width: 0%;
+    height: 0%;
+    opacity: 0;
+  }
+
+  10% {
+    width: 100%;
+    height: 0%;
+    opacity: 1;
+  }
+
+  50% {
+    height: 100%;
+  }
+
+  80% {
+    width: 0%;
+  }
+
+  100% {
+    height: 0%;
+    opacity: 0;
+  }
+}

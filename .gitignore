@@ -1,0 +1,27 @@
+# Ignorar dependências do backend
+server/node_modules/
+
+# Ignorar arquivos de build do backend (caso use)
+server/dist/
+server/build/
+
+# Ignorar variáveis de ambiente do backend
+server/.env
+
+# Logs
+server/npm-debug.log*
+server/yarn-debug.log*
+server/yarn-error.log*
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos do editor
+.vscode/
+.idea/
+
+# Opcional: se tiver build do frontend também
+dist/
+build/
+.env

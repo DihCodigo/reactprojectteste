@@ -1,0 +1,87 @@
+const express = require('express');
+const router = express.Router();
+const db = require('../db');
+
+// GET todos os anúncios (sem limite)
+router.get('/', (req, res) => {
+  db.query('SELECT * FROM anuncios ORDER BY data_publicacao DESC', (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+});
+
+// GET últimas 6 notícias
+router.get('/ultimas', (req, res) => {
+  db.query('SELECT * FROM anuncios ORDER BY data_publicacao DESC LIMIT 6', (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+});
+
+// GET top 3 anúncios com mais visualizações
+router.get('/top', (req, res) => {
+  db.query('SELECT * FROM anuncios ORDER BY visualizacoes DESC LIMIT 4', (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results); 
+  });
+});
+
+// Rota de stories / recentes
+router.get("/recentes", (req, res) => {
+  const connection = req.connection; // <-- Pegamos da request
+
+  connection.query(
+    "SELECT id, titulo, resumo, imagem FROM anuncios ORDER BY data_publicacao DESC LIMIT 10",
+    (err, results) => {
+      if (err) {
+        console.error("Erro ao buscar stories:", err);
+        return res.status(500).json({ erro: "Erro no servidor" });
+      }
+      res.json(results);
+    }
+  );
+});
+
+// GET por ID
+router.get('/:id', (req, res) => {
+  db.query('SELECT * FROM anuncios WHERE id = ?', [req.params.id], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results[0]);
+  });
+});
+
+// POST criar anúncio
+router.post('/', (req, res) => {
+  const { titulo, resumo, conteudo, categoria, imagem } = req.body;
+  db.query(
+    'INSERT INTO anuncios (titulo, resumo, conteudo, categoria, imagem) VALUES (?, ?, ?, ?, ?)', 
+    [titulo, resumo, conteudo, categoria, imagem], 
+    (err, result) => {
+      if (err) return res.status(500).send(err);
+      res.json({ id: result.insertId });
+    }
+  );
+});
+
+// PUT editar
+router.put('/:id', (req, res) => {
+  const { titulo, resumo, conteudo, categoria, imagem } = req.body;
+  db.query(
+    'UPDATE anuncios SET titulo=?, resumo=?, conteudo=?, categoria=?, imagem=? WHERE id=?',
+    [titulo, resumo, conteudo, categoria, imagem, req.params.id],
+    (err) => {
+      if (err) return res.status(500).send(err);
+      res.sendStatus(200);
+    }
+  );
+});
+
+// DELETE
+router.delete('/:id', (req, res) => {
+  db.query('DELETE FROM anuncios WHERE id=?', [req.params.id], (err) => {
+    if (err) return res.status(500).send(err);
+    res.sendStatus(200);
+  });
+});
+
+module.exports = router;
