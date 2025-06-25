@@ -37,6 +37,14 @@ main {
   z-index: 99;
 }
 
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+  font-size: 1.6rem;
+  display: inline-block;
+}
+
 .site-header .logo {
   font-size: 28px;
   font-weight: bold;
@@ -1007,86 +1015,7 @@ footer .copyright {
 /* =========================== */
 /* CATEGORIA SELECION          */
 /* =========================== */
-.categoria-pagina {
-  padding: 30px 20px;
-  max-width: 1300px;
-  margin: auto;
-}
 
-.categoria-titulo {
-  font-size: 26px;
-  margin-bottom: 20px;
-}
 
-.genero-filtros {
-  margin-bottom: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
 
-.genero-filtros button {
-  background: #eee;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
-}
-
-.genero-filtros button:hover {
-  background: #ddd;
-}
-
-.genero-filtros .ativo {
-  background: #ff6600;
-  color: white;
-}
-
-.categoria-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.categoria-card {
-  background: #fff;
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-  transition: 0.3s;
-}
-
-.categoria-card:hover {
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-}
-
-.categoria-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.categoria-card-info {
-  padding: 15px;
-}
-
-.categoria-card-info h2 {
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: #222;
-}
-
-.categoria-card-info p {
-  font-size: 14px;
-  color: #666;
-}
-
-.categoria-card-info .genero {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 12px;
-  color: #999;
-}
-
+/**/

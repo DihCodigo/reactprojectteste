@@ -28,7 +28,7 @@ router.get('/top', (req, res) => {
 
 // Rota de stories / recentes
 router.get("/recentes", (req, res) => {
-  const connection = req.connection; // <-- Pegamos da request
+  const connection = req.connection;
 
   connection.query(
     "SELECT id, titulo, resumo, imagem FROM anuncios ORDER BY data_publicacao DESC LIMIT 10",
@@ -41,6 +41,49 @@ router.get("/recentes", (req, res) => {
     }
   );
 });
+
+
+router.get("/buscar", (req, res) => {
+  const termo = req.query.q;
+
+  if (!termo) {
+    return res.status(400).json({ erro: "Termo de busca não fornecido" });
+  }
+
+  const sql = `
+    SELECT id, titulo, resumo, imagem 
+    FROM anuncios 
+    WHERE titulo LIKE ? OR resumo LIKE ? 
+    ORDER BY data_publicacao DESC 
+    LIMIT 20
+  `;
+
+  const termoBusca = `%${termo}%`;
+
+  db.query(sql, [termoBusca, termoBusca], (err, results) => {
+    if (err) {
+      console.error("Erro ao buscar anúncios:", err);
+      return res.status(500).json({ erro: "Erro no servidor" });
+    }
+
+    res.json(results);
+  });
+});
+
+// GET anúncios filtrados por categoria
+router.get('/categoria/:nome', (req, res) => {
+  const categoria = req.params.nome;
+
+  db.query(
+    'SELECT * FROM anuncios WHERE categoria = ? ORDER BY data_publicacao DESC',
+    [categoria],
+    (err, results) => {
+      if (err) return res.status(500).send(err);
+      res.json(results);
+    }
+  );
+});
+
 
 // GET por ID
 router.get('/:id', (req, res) => {

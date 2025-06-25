@@ -6,7 +6,7 @@ function Footer() {
     <footer>
       <div className="footer-container">
         <div className="footer-logo">
-          Café <span className="logo-highlight">Absurdo(!)</span>
+          Viraliza! <span className="logo-highlight">NEWS</span>
         </div>
 
         <div className="footer-links">

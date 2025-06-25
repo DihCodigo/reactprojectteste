@@ -7,6 +7,7 @@ import CardGrid from './components/CardGrid';
 import UltimasNoticias from './components/UltimasNoticias';
 import Categoria from './components/Categoria';
 import Noticia from './components/Noticia';
+import Busca from "./components/Busca";
 import axios from 'axios';
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
           <Route path="/categoria" element={<Categoria />} />
 
           <Route path="/categoria/:categoria" element={<Categoria />} />
+          
+          <Route path="/buscar/:query" element={<Busca />} />
 
           <Route path="/noticia/:id" element={<Noticia />} />
         </Routes>

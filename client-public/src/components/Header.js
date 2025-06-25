@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './layout.css';
 
 function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
   const [submenuAberto, setSubmenuAberto] = useState(false);
-  const [query, setQuery] = useState(''); // estado para a pesquisa
+  const [query, setQuery] = useState('');
+  const [resultados, setResultados] = useState([]);
 
-  // Fecha menus quando clicar em link
   const fecharMenu = () => {
     setMenuAberto(false);
     setSubmenuAberto(false);
   };
 
-  // Fecha submenu se clicar fora (útil mobile)
   useEffect(() => {
     function handleClickFora(event) {
       const menuCategoria = document.querySelector('.menu-categoria');
@@ -31,11 +31,14 @@ function Header() {
     };
   }, [submenuAberto]);
 
-  // Função disparada ao clicar no botão pesquisar ou apertar Enter
+  const navigate = useNavigate();
+
   const handleSearch = () => {
-    console.log('Pesquisar por:', query);
-    // aqui você pode implementar sua lógica, ex: redirecionar para página de busca
-    // ex: window.location.href = `/search?q=${encodeURIComponent(query)}`;
+    if (!query.trim()) return;
+    navigate(`/buscar/${encodeURIComponent(query.trim())}`);
+    setResultados([]);
+    setQuery("");
+    fecharMenu();
   };
 
   const onEnterPress = (e) => {
@@ -47,7 +50,9 @@ function Header() {
   return (
     <header className="site-header">
       <div className="logo">
-        Viraliza! <span className="logo-highlight">NEWS</span>
+        <Link to="/" onClick={fecharMenu} className="logo-link">
+          Viraliza!<span className="logo-highlight">NEWS</span>
+        </Link>
       </div>
 
       <nav className={`nav-links ${menuAberto ? 'ativo' : ''}`}>
@@ -59,7 +64,7 @@ function Header() {
           onMouseLeave={() => window.innerWidth > 768 && setSubmenuAberto(false)}
         >
           <Link
-            to="/categoria"
+            to=""
             onClick={(e) => {
               if (window.innerWidth <= 768) {
                 e.preventDefault();
@@ -83,7 +88,7 @@ function Header() {
           )}
         </div>
 
-        <Link to="/categoria/reviews" onClick={fecharMenu}>Reviews</Link>
+        {/* <Link to="/categoria/reviews" onClick={fecharMenu}>Reviews</Link>*/}
 
         {/* Campo de busca dentro do menu */}
         <div className="user-area">
@@ -97,6 +102,26 @@ function Header() {
           <button onClick={handleSearch} aria-label="Pesquisar" className="botao-pesquisa">
             🔍
           </button>
+
+          {/* Resultados da busca */}
+          {resultados.length > 0 && (
+            <div className="resultados-busca">
+              {resultados.map(item => (
+                <Link
+                  key={item.id}
+                  to={`/noticia/${item.id}`}
+                  onClick={fecharMenu}
+                  className="resultado-item"
+                >
+                  <img src={item.imagem} alt={item.titulo} />
+                  <div>
+                    <h4>{item.titulo}</h4>
+                    <p>{item.resumo}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </nav>
 
