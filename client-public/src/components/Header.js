@@ -47,7 +47,7 @@ function Header() {
   return (
     <header className="site-header">
       <div className="logo">
-        Café <span className="logo-highlight">Absurdo(!)</span>
+        Viraliza! <span className="logo-highlight">NEWS</span>
       </div>
 
       <nav className={`nav-links ${menuAberto ? 'ativo' : ''}`}>
@@ -59,10 +59,10 @@ function Header() {
           onMouseLeave={() => window.innerWidth > 768 && setSubmenuAberto(false)}
         >
           <Link
-            to="/categoria/acao"
+            to="/categoria"
             onClick={(e) => {
               if (window.innerWidth <= 768) {
-                e.preventDefault(); // evita navegação no clique do submenu
+                e.preventDefault();
                 setSubmenuAberto(!submenuAberto);
               } else {
                 fecharMenu();

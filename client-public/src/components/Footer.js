@@ -22,7 +22,7 @@ function Footer() {
       </div>
 
       <div className="copyright">
-        &copy; {new Date().getFullYear()} Café Absurdo. Todos os direitos reservados.
+        &copy; {new Date().getFullYear()} Viraliza!NEWS Absurdo. Todos os direitos reservados.
       </div>
     </footer>
 

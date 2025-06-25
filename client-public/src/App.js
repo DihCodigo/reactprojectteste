@@ -41,7 +41,10 @@ function App() {
               <UltimasNoticias />
             </>
           } />
+          <Route path="/categoria" element={<Categoria />} />
+
           <Route path="/categoria/:categoria" element={<Categoria />} />
+
           <Route path="/noticia/:id" element={<Noticia />} />
         </Routes>
       </Layout>
