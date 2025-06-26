@@ -1,0 +1,79 @@
+.form-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f1f1f1; 
+  border-radius: 2px;
+  box-shadow: 2px 2px 15px black;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.form-container h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #ffa500; 
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #444;
+  padding-bottom: 0.5rem;
+}
+
+form label {
+  display: block;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.3rem;
+  background-color: #ddd;
+  border-top: none;
+  border-right: none;
+  border-radius: 2px;
+  color: #444;
+  font-size: 1.2rem;
+}
+
+form input::placeholder,
+form textarea::placeholder {
+  color: #aaa;
+}
+
+form input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+  accent-color: #ffa500; 
+}
+
+form input[type="datetime-local"] {
+  color-scheme: dark;
+}
+
+button {
+  margin-top: 2rem;
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #ffa500;
+  color: #1e1e1e;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff8c00;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+}

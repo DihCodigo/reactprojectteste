@@ -93,12 +93,14 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// POST criar anúncio
 router.post('/', (req, res) => {
-  const { titulo, resumo, conteudo, categoria, imagem } = req.body;
+  const { titulo, resumo, conteudo, categoria, imagem, destaque, data_publicacao } = req.body;
+
+  const visualizacoes = Math.floor(Math.random() * (100000 - 1000 + 1)) + 1000;
+
   db.query(
-    'INSERT INTO anuncios (titulo, resumo, conteudo, categoria, imagem) VALUES (?, ?, ?, ?, ?)', 
-    [titulo, resumo, conteudo, categoria, imagem], 
+    'INSERT INTO anuncios (titulo, resumo, conteudo, categoria, imagem, destaque, data_publicacao, visualizacoes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [titulo, resumo, conteudo, categoria, imagem, destaque ? 1 : 0, data_publicacao || new Date(), visualizacoes],
     (err, result) => {
       if (err) return res.status(500).send(err);
       res.json({ id: result.insertId });
@@ -106,18 +108,20 @@ router.post('/', (req, res) => {
   );
 });
 
-// PUT editar
+
+
 router.put('/:id', (req, res) => {
-  const { titulo, resumo, conteudo, categoria, imagem } = req.body;
+  const { titulo, resumo, conteudo, categoria, imagem, destaque, data_publicacao } = req.body;
   db.query(
-    'UPDATE anuncios SET titulo=?, resumo=?, conteudo=?, categoria=?, imagem=? WHERE id=?',
-    [titulo, resumo, conteudo, categoria, imagem, req.params.id],
+    'UPDATE anuncios SET titulo=?, resumo=?, conteudo=?, categoria=?, imagem=?, destaque=?, data_publicacao=? WHERE id=?',
+    [titulo, resumo, conteudo, categoria, imagem, destaque ? 1 : 0, data_publicacao, req.params.id],
     (err) => {
       if (err) return res.status(500).send(err);
       res.sendStatus(200);
     }
   );
 });
+
 
 // DELETE
 router.delete('/:id', (req, res) => {

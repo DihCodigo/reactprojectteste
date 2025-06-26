@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './Home.css';
 
 function Home() {
   const [anuncios, setAnuncios] = useState([]);
@@ -12,14 +13,15 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="home-container">
       <h1>Últimos Anúncios</h1>
-      <Link to="/novo">➕ Novo Anúncio</Link>
+      <Link to="/novo" className="new-link">➕ Novo Anúncio</Link>
+
       {anuncios.map(anuncio => (
-        <div key={anuncio.id} style={{ marginBottom: '20px' }}>
+        <div key={anuncio.id} className="anuncio-card">
           <h2><Link to={`/anuncio/${anuncio.id}`}>{anuncio.titulo}</Link></h2>
           <p>{anuncio.resumo}</p>
-          <Link to={`/editar/${anuncio.id}`}>✏️ Editar</Link>
+          <Link to={`/editar/${anuncio.id}`} className="edit-link">✏️ Editar</Link>
         </div>
       ))}
     </div>

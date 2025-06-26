@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import './Form.css';
 
 function Form() {
   const { id } = useParams();
@@ -12,7 +13,10 @@ function Form() {
     resumo: '',
     conteudo: '',
     categoria: '',
-    imagem: ''
+    imagem: '',
+    destaque: false,
+    data_publicacao: '',
+    visualizacoes: 0
   });
 
   useEffect(() => {
@@ -24,14 +28,18 @@ function Form() {
   }, [id]);
 
   const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
+    const visualizacoes = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
+    const formData = { ...form, visualizacoes };
+
     const request = isEdit
-      ? axios.put(`http://localhost:3001/api/anuncios/${id}`, form)
-      : axios.post('http://localhost:3001/api/anuncios', form);
+      ? axios.put(`http://localhost:3001/api/anuncios/${id}`, formData)
+      : axios.post('http://localhost:3001/api/anuncios', formData);
 
     request
       .then(() => navigate('/'))
@@ -39,14 +47,48 @@ function Form() {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h1>{isEdit ? 'Editar Anúncio' : 'Novo Anúncio'}</h1>
       <form onSubmit={handleSubmit}>
-        <input name="titulo" placeholder="Título" value={form.titulo} onChange={handleChange} required /><br />
-        <textarea name="resumo" placeholder="Resumo" value={form.resumo} onChange={handleChange} /><br />
-        <textarea name="conteudo" placeholder="Conteúdo" value={form.conteudo} onChange={handleChange} /><br />
-        <input name="categoria" placeholder="Categoria" value={form.categoria} onChange={handleChange} /><br />
-        <input name="imagem" placeholder="URL da Imagem" value={form.imagem} onChange={handleChange} /><br />
+        <label>Título</label>
+        <input name="titulo" value={form.titulo} onChange={handleChange} required />
+
+        <label>Resumo</label>
+        <textarea name="resumo" value={form.resumo} onChange={handleChange} />
+
+        <label>Conteúdo</label>
+        <textarea name="conteudo" value={form.conteudo} onChange={handleChange} />
+
+        <label>Categoria</label>
+        <input name="categoria" value={form.categoria} onChange={handleChange} />
+
+        <label>Imagem (URL)</label>
+        <input name="imagem" value={form.imagem} onChange={handleChange} />
+
+        <label>
+          <input
+            type="checkbox"
+            name="destaque"
+            checked={form.destaque}
+            onChange={handleChange}
+          /> Destaque
+        </label>
+
+        <label>Data de Publicação</label>
+        <input
+          type="datetime-local"
+          name="data_publicacao"
+          value={form.data_publicacao}
+          onChange={handleChange}
+        />
+
+        {isEdit && (
+          <>
+            <label>Visualizações</label>
+            <input name="visualizacoes" value={form.visualizacoes} disabled />
+          </>
+        )}
+
         <button type="submit">Salvar</button>
       </form>
     </div>
