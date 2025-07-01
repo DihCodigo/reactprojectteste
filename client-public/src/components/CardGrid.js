@@ -1,24 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './layout.css';
 
 function CardGrid({ noticias }) {
   const lista = Array.isArray(noticias) ? noticias : [];
 
-  // Ordenar por mais vistos (caso tenha campo `views`)
-  const maisVistos = [...lista]
-    .sort((a, b) => (b.views || 0) - (a.views || 0))
-    .slice(0, 4);
+  const [maisVistos, setMaisVistos] = useState([]);
+  const [noArAgora, setNoArAgora] = useState([]); 
+
+  useEffect(() => {
+    fetch('http://localhost:3001/api/anuncios/aleatorias')
+      .then(res => {
+        if (!res.ok) throw new Error('Erro na resposta da API');
+        return res.json();
+      })
+      .then(data => {
+        setNoArAgora(data.noticias || []);
+      })
+      .catch(err => console.error('Erro ao carregar No ar agora:', err));
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/api/anuncios/top')
+      .then(res => {
+        if (!res.ok) throw new Error('Erro na resposta da API');
+        return res.json();
+      })
+      .then(data => setMaisVistos(data))
+      .catch(err => console.error('Erro ao carregar mais vistos:', err));
+  }, []);
 
   return (
     <section className="cards-wrapper">
       <div className="cards">
         <h3>No ar agora</h3>
         <div className="card-grid">
-          {lista.slice(0, 6).map((noticia) => (
+          {noArAgora.slice(0, 6).map((noticia) => (
             <div className="card" key={noticia.id}>
               <img
-                src={noticia.imagem && noticia.imagem.trim() !== '' ? `${noticia.imagem}` : 'https://via.placeholder.com/180x250?text=Anime'}
+                src={noticia.imagem && noticia.imagem.trim() !== '' ? noticia.imagem : 'https://via.placeholder.com/180x250?text=Anime'}
                 alt={noticia.titulo || 'Imagem'}
               />
               <h4><Link to={`/noticia/${noticia.id}`}>{noticia.titulo}</Link></h4>
@@ -35,7 +55,7 @@ function CardGrid({ noticias }) {
             <li key={noticia.id}>
               <Link to={`/noticia/${noticia.id}`}>
                 <img
-                  src={noticia.imagem && noticia.imagem.trim() !== '' ? `${noticia.imagem}` : 'https://via.placeholder.com/80x80?text=+'}
+                  src={noticia.imagem && noticia.imagem.trim() !== '' ? noticia.imagem : 'https://via.placeholder.com/80x80?text=+'}
                   alt={noticia.titulo}
                 />
                 <div>

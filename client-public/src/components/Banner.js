@@ -9,7 +9,7 @@ function Banner() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/anuncios/top')
+    axios.get('http://localhost:3001/api/anuncios/getSete')
       .then(res => {
         setAnuncios(res.data);
         setLoading(false);

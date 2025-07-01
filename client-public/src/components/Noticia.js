@@ -15,42 +15,37 @@ function Noticia() {
   }, [id]);
 
   useEffect(() => {
-    if (noticia?.categoria) {
-      axios
-        .get(`http://localhost:3001/api/anuncios?categoria=${noticia.categoria}`)
-        .then((res) => {
-          const outras = res.data.filter((n) => n.id !== parseInt(id));
-          setRelacionadas(outras.slice(0, 5));
-        })
-        .catch((err) => console.error(err));
-    }
-  }, [noticia, id]);
+  if (noticia?.categoria) {
+    axios.get(`http://localhost:3001/api/anuncios/categoria/${noticia.categoria}`)
+      .then(res => {
+        console.log("Relacionadas recebidas:", res.data);
+        setRelacionadas(res.data);
+      })
+      .catch(err => console.error(err));
+  }
+}, [noticia]);
 
-  function processarConteudo(htmlString) {
-  const paragrafos = htmlString.split(/\n\s*\n/);
-  const resultado = [];
 
-  paragrafos.forEach((paragrafo, index) => {
-    resultado.push(
-      <p key={`p-${index}`}>{paragrafo.trim()}</p>
-    );
+  function processarConteudo(conteudo) {
+    if (!conteudo) return null;
 
-    if ((index + 1) % 2 === 0 && index < paragrafos.length - 1) {
+    const paragrafos = conteudo.split(/(?<=\.)\s+(?=[A-ZÀ-Ú])/);
+    const resultado = [];
+
+    paragrafos.forEach((paragrafo, index) => {
       resultado.push(
-        <div key={`ad-${index}`} className="espaco-paragrafo">
-          {/* Aqui você pode colocar um anúncio real 
-          <div className="anuncio-placeholder">
-            [ Anúncio aqui ]
-          </div>
-          */}
-        </div>
+        <p key={`p-${index}`}>{paragrafo.trim()}</p>
       );
-    }
-  });
 
-  return resultado;
-}
+      if ((index + 1) % 2 === 0 && index < paragrafos.length - 1) {
+        resultado.push(
+          <div key={`ad-${index}`} className="espaco-paragrafo">{/* Anúncio */}</div>
+        );
+      }
+    });
 
+    return resultado;
+  }
 
   if (!noticia) return <p className="carregando">Carregando...</p>;
 
@@ -86,20 +81,25 @@ function Noticia() {
 
       <aside className="noticia-lateral">
         <h3>Relacionadas</h3>
-        <ul className="relacionadas-lista">
-          {relacionadas.map((item) => (
-            <li key={item.id} className="relacionada-item">
-              <Link to={`/noticia/${item.id}`}>
-                <img src={item.imagem} alt={item.titulo} />
-                <div className="relacionada-info">
-                  <h4>{item.titulo}</h4>
-                  <time>{new Date(item.data_publicacao).toLocaleDateString()}</time>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {relacionadas.length > 0 ? (
+          <ul className="relacionadas-lista">
+            {relacionadas.slice(0, 5).map((item) => (
+              <li key={item.id} className="relacionada-item">
+                <Link to={`/noticia/${item.id}`}>
+                  <img src={item.imagem} alt={item.titulo} />
+                  <div className="relacionada-info">
+                    <h4>{item.titulo}</h4>
+                    <time>{new Date(item.data_publicacao).toLocaleDateString()}</time>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p style={{ padding: '10px' }}>Nenhuma notícia relacionada encontrada.</p>
+        )}
       </aside>
+
     </main>
   );
 }

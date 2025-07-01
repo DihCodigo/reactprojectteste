@@ -10,7 +10,7 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f5f5;
-  
+
   color: #222;
 }
 
@@ -22,146 +22,206 @@ main {
 /* =========================== */
 /* HEADER                      */
 /* =========================== */
-.site-header {
-  background-color: #00000094;
-  border-bottom: 1px solid #e5e5e5;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 66px;
-  border-bottom:3px solid  #222;
-  box-shadow: 3px 7px 10px black;
-  width: 100vw;
-  padding-right: 10px;
-  position: fixed;
-  z-index: 99;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
 
-.logo-link {
+.logo {
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #222;
+  letter-spacing: 0.03em;
+  user-select: none;
+  transition: color 0.3s ease;
   text-decoration: none;
-  color: inherit;
-  font-weight: bold;
-  font-size: 1.6rem;
-  display: inline-block;
-}
-
-.site-header .logo {
-  font-size: 28px;
-  font-weight: bold;
-  color: #fff;
-  height: 66px;
-  min-width: 260px;
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-  border-bottom-right-radius: 100px;
-  background-color: #222;
-  background-image:
-    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0 20px, transparent 20px 40px),
-    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.02) 0 20px, transparent 20px 40px);
-  background-size: cover;
-  background-repeat: repeat;
-  background-position: center;
-  position: relative;
-  overflow: hidden;
+  max-width: max-content;
+  cursor: pointer;
 }
 
-.site-header .logo::after {
-  content: "! café ! ! café !";
+.logo::after {
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-20deg);
-  font-size: 36px;
-  color: rgba(255, 255, 255, 0.04);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.site-header .logo span {
-  color: #ff6600;
-  position: relative;
-  z-index: 1;
-}
-
-.site-header nav a {
-  margin: 0 15px;
-  color: #333;
-  text-decoration: none;
-  font-weight: 500;
-  color: whitesmoke;
-  transition: color 0.3s;
-}
-
-.site-header nav a:hover {
-  color: #ff6600;
-}
-
-.menu-categoria {
-  position: relative;
-}
-
-.submenu {
-  position: absolute;
-  top: 100%;
+  width: 0;
+  height: 3px;
+  bottom: -6px;
   left: 0;
-  background: #444;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  min-width: 180px;
-  z-index: 20;
+  background-color: orangered;
+  transition: width 0.3s ease;
+  border-radius: 2px;
 }
 
-.submenu a {
-  padding: 10px 16px;
+.logo:hover::after {
+  width: 100%;
+}
+
+.logo-highlight {
+  color: #dc3545;
+  font-weight: 900;
+  margin-left: 4px;
+  font-style: italic;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 576px) {
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  .logo::after {
+    height: 2px;
+    bottom: -4px;
+  }
+}
+
+.form-search-wrapper {
+  position: relative;
+  width: 250px;
+  max-width: 100%;
+  margin-left: auto;
+}
+
+.form-search-wrapper input.form-control {
+  width: 100%;
+  padding: 8px 40px 8px 8px;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  transition: border-color 0.3s ease;
+  border-radius: 0;
+  outline: none;
+  color: #222;
+}
+
+.form-search-wrapper input.form-control:focus {
+  border-bottom-color: orangered;
+}
+
+.form-search-wrapper button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: orangered;
+  cursor: pointer;
+  padding: 0;
+}
+
+.form-search-wrapper button:hover {
+  color: #b33a2a;
+}
+
+.dropdown-menu {
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 8px 24px rgba(255, 69, 0, 0.15);
+  border: 1px solid rgba(255, 69, 0, 0.3);
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  z-index: 1050;
+}
+
+.dropdown-menu .dropdown-item {
   color: #333;
+  font-weight: 600;
+  padding: 10px 24px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  border-left: 4px solid transparent;
+}
+
+.dropdown-menu .dropdown-item:hover, 
+.dropdown-menu .dropdown-item:focus {
+  background-color: rgba(255, 69, 0, 0.12);
+  color: orangered;
+  border-left-color: orangered;
   text-decoration: none;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.2s;
 }
 
-.submenu a:hover {
-  background-color: #333;
-  color: white;
+.dropdown-divider {
+  border-top: 1px solid rgba(255, 69, 0, 0.2);
+  margin: 0.4rem 0;
 }
 
-.submenu a:last-child {
-  border-bottom: none;
+.dropdown-menu::-webkit-scrollbar {
+  width: 8px;
 }
+
+.dropdown-menu::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 2px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: orangered;
+  border-radius: 2px;
+  border: 2px solid #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background-color: #cc3b00;
+}
+
+.dropdown-menu {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255, 197, 176) #ff6600;
+}
+
 
 @media (max-width: 768px) {
-  .submenu {
-    position: static;
+  .dropdown-menu {
+    position: static !important;
+    max-height: none;
     box-shadow: none;
     border: none;
-    width: 280px;
-    background-color: #222;
-    min-width: auto;
   }
 
-  .nav-links {
-    flex-direction: column;
+  .dropdown-menu .dropdown-item {
+    padding-left: 16px;
+  }
+}
+
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
 
-  .menu-categoria > a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .menu-categoria > a::after {
-    content: '▼';
-    padding: 0px 10px;
-    font-size: 12px;
-    transition: transform 0.3s;
-  }
+.navbar-nav .nav-link {
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  color: #222;
+}
 
-  .menu-categoria .submenu {
-    display: flex;
-    flex-direction: column;
-  }
+.navbar-nav .nav-link:hover {
+  background: linear-gradient(to bottom, #ffffff, #ffdbc8);
+  color: orangered;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  z-index: 1000;
+  background-color: #fff;
 }
 
 /* =========================== */
@@ -205,7 +265,7 @@ main {
 
 @media (max-width: 768px) {
   .user-area {
-    display: flex; 
+    display: flex;
     width: 100%;
     padding: 10px 20px;
     box-sizing: border-box;
@@ -213,7 +273,7 @@ main {
   }
 
   .user-area input {
-    width: 100%; 
+    width: 100%;
     max-width: 300px;
   }
 
@@ -489,8 +549,7 @@ main {
 }
 
 .mais-vistos {
-  background: #00000027;
-  padding: 20px;
+background: linear-gradient(to bottom, #ffffff, #ffdbc8);  padding: 20px;
   border-radius: 2px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
@@ -540,7 +599,8 @@ main {
 /* FOOTER                      */
 /* =========================== */
 footer {
-  background: #222; /* escurecido para contraste */
+  background: #222;
+  /* escurecido para contraste */
   color: #ccc;
   padding: 40px 20px;
   margin-top: 60px;
@@ -849,6 +909,7 @@ footer .copyright {
   letter-spacing: 0.02em;
   margin-top: 24px;
 }
+
 .espaco-paragrafo {
   margin: 24px 0;
   text-align: center;
@@ -937,7 +998,7 @@ footer .copyright {
 /* LATERAL RELACIONADAS        */
 /* =========================== */
 .noticia-lateral {
-  background: #fff;
+  background: linear-gradient(to bottom, #ffffff, #ffdbc8);
   padding: 20px;
   border-radius: 2px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -1004,7 +1065,7 @@ footer .copyright {
 
   .noticia-lateral {
     margin-top: 40px;
-    position: static; 
+    position: static;
   }
 
   .noticia-content {

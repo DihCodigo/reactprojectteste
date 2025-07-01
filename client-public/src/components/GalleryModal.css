@@ -78,5 +78,23 @@
 .modal-info p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #ccc;
+  color: #FFF;
 }
+
+.modal-read-more-btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 16px;
+  background-color: #ff6600;
+  color: #FFF;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.modal-read-more-btn:hover {
+  background-color: #ff6600;
+  color: #111;
+  opacity: 0.6;
+}
+

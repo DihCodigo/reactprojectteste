@@ -7,7 +7,7 @@ function UltimasNoticias() {
   const [noticias, setNoticias] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/anuncios/recentes')
+    axios.get('http://localhost:3001/api/anuncios/ultimas')
       .then(res => setNoticias(res.data))
       .catch(err => console.error('Erro ao carregar últimas notícias:', err));
   }, []);

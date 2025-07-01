@@ -23,7 +23,7 @@ function Stories() {
 
   return (
     <section className="stories-container">
-      <h2>Stories Recentes</h2>
+      <h2>Destaques Recentes</h2>
       <div className="stories-scroll" tabIndex={0}>
         <div className="stories-scroll-inner">
           {duplicatedStories.map((noticia, idx) => (
