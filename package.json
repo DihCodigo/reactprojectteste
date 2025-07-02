@@ -1,5 +1,15 @@
 {
+  "name": "reactprojectteste",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"node server/index.js\" \"npm run site\" \"npm run form\"",
+    "site": "cd client-public && npm start",
+    "form": "cd client && npm start"
+  },
   "dependencies": {
     "bootstrap": "^5.3.7"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
   }
 }
